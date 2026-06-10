@@ -31,6 +31,12 @@ if os.environ.get("LANGFUSE_PUBLIC_KEY") and os.environ.get("LANGFUSE_SECRET_KEY
 
 app = FastAPI()
 
+# Static metadata attached to every trace, for filtering in Langfuse.
+# Request `tags` are merged on top and can extend/override these.
+STATIC_METADATA: dict[str, Any] = {
+    "project": "mlops-hw2",
+}
+
 
 class AnswerRequest(BaseModel):
     question: str
@@ -57,7 +63,7 @@ def answer(req: AnswerRequest) -> AnswerResponse:
     state = AgentState(question=req.question, db_id=req.db)
     config: dict[str, Any] = {
         "callbacks": [_lf_handler] if _lf_handler is not None else [],
-        "metadata": req.tags,
+        "metadata": {**STATIC_METADATA, **req.tags},
     }
     try:
         final = graph.invoke(state, config=config)
