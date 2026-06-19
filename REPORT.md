@@ -38,12 +38,9 @@ categories, built from vLLM's `/metrics` (current, non-deprecated metric names):
 - **KV cache:** `kv_cache_usage_perc` (headroom, thresholds at 0.8/0.95),
   preemptions/s (eviction cliff), prefix-cache hit rate (schema-prompt reuse).
 
-All panels confirmed to bind against the live H100 endpoint and react under load.
-During the baseline load test (~18:30–18:37), vLLM-layer metrics looked healthy:
-E2E P95 ~3s, queue-wait P95 ~0.25s, `num_requests_waiting = 0`, KV cache peaked
-~50%, preemptions = 0, prefix-cache hit rate ~90%.
+All panels confirmed to bind against the live H100 endpoint.
 
-**Deliverable:** `screenshots/grafana_serving.png`.
+**Deliverable:** `screenshots/grafana_serving.png and infra/grafana/provisioning/dashboards/serving.json`.
 
 ---
 
